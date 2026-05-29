@@ -3,6 +3,9 @@
 import { spawn } from "node:child_process";
 import { mkdir, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
 
 function parseArgs(argv) {
   const args = {
@@ -168,7 +171,7 @@ async function main() {
         "wget mirror failed.",
         "Install wget or add required asset domains:",
         "  brew install wget",
-        `  node "$FORK_SKILL/scripts/mirror-source.mjs" --url ${sourceUrl} --domains ${domains.join(",")},cdn.example.com`,
+        `  node "${__filename}" --url ${sourceUrl} --domains ${domains.join(",")},cdn.example.com`,
         "",
         error.message,
       ].join("\n"),

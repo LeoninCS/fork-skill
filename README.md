@@ -9,10 +9,10 @@
 ## Install
 
 ```bash
-mkdir -p ~/.codex/skills
-ln -s /Users/sealos/repositories/fork-skill ~/.codex/skills/fork-skill
-export FORK_SKILL="$HOME/.codex/skills/fork-skill"
+node scripts/install.mjs
 ```
+
+This installs the skill at `~/.codex/skills/fork-skill`.
 
 Install runtime tools in the target project:
 
@@ -27,8 +27,14 @@ brew install wget
 Ask Codex:
 
 ```text
-Use $fork-skill to clone https://example.com into this project one-to-one.
+Recreate https://example.com
+I want to recreate https://example.com
+Copy https://example.com
+Rebuild https://example.com
+Clone https://example.com into this project
 ```
+
+Any natural clone/recreation request with a URL will trigger the skill.
 
 The skill defaults to:
 
@@ -45,7 +51,7 @@ The skill defaults to:
 Initialize mirror, runbook, and starter interactions:
 
 ```bash
-node "$FORK_SKILL/scripts/one-link-init.mjs" --url https://example.com/
+node "$HOME/.codex/skills/fork-skill/scripts/one-link-init.mjs" --url https://example.com/
 ```
 
 Then read `.fork-skill/runbook.json` and run the generated commands. The runbook contains the exact mirrored source URL, source server command, capture commands, and validation command.
@@ -59,7 +65,7 @@ python3 -m http.server 4173 --directory .fork-skill/source
 Capture source evidence:
 
 ```bash
-node "$FORK_SKILL/scripts/capture-evidence.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/capture-evidence.mjs" \
   --source http://127.0.0.1:4173/example.com/index.html \
   --out .fork-skill/evidence/source-pass \
   --viewports desktop=1440x900,mobile=390x844
@@ -68,7 +74,7 @@ node "$FORK_SKILL/scripts/capture-evidence.mjs" \
 After implementing the clone, capture paired evidence:
 
 ```bash
-node "$FORK_SKILL/scripts/capture-evidence.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/capture-evidence.mjs" \
   --source http://127.0.0.1:4173/example.com/index.html \
   --target http://127.0.0.1:5173/ \
   --out .fork-skill/evidence/latest \
@@ -79,7 +85,7 @@ node "$FORK_SKILL/scripts/capture-evidence.mjs" \
 Validate:
 
 ```bash
-node "$FORK_SKILL/scripts/validate-evidence.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/validate-evidence.mjs" \
   --evidence .fork-skill/evidence/latest \
   --out .fork-skill/reports/latest \
   --threshold 0.02
@@ -121,10 +127,10 @@ The clone is ready when desktop and mobile screenshots pass the threshold, key i
 ## 安装
 
 ```bash
-mkdir -p ~/.codex/skills
-ln -s /Users/sealos/repositories/fork-skill ~/.codex/skills/fork-skill
-export FORK_SKILL="$HOME/.codex/skills/fork-skill"
+node scripts/install.mjs
 ```
+
+脚本会把 skill 安装到 `~/.codex/skills/fork-skill`。
 
 在目标项目里安装运行依赖：
 
@@ -139,8 +145,15 @@ brew install wget
 向 Codex 发送：
 
 ```text
-Use $fork-skill to clone https://example.com into this project one-to-one.
+复刻 https://example.com
+我想复刻 https://example.com
+复刻这个网站 https://example.com
+仿站 https://example.com
+还原 https://example.com
+照着 https://example.com 做一个
 ```
+
+带有复刻、仿站、还原、照着做意图和 URL 的自然语言请求会触发这个 skill。
 
 默认规则：
 
@@ -157,7 +170,7 @@ Use $fork-skill to clone https://example.com into this project one-to-one.
 初始化镜像、runbook 和初始交互矩阵：
 
 ```bash
-node "$FORK_SKILL/scripts/one-link-init.mjs" --url https://example.com/
+node "$HOME/.codex/skills/fork-skill/scripts/one-link-init.mjs" --url https://example.com/
 ```
 
 然后读取 `.fork-skill/runbook.json` 并执行其中生成的命令。runbook 包含精确的本地源页面 URL、源页面服务命令、证据采集命令和验证命令。
@@ -171,7 +184,7 @@ python3 -m http.server 4173 --directory .fork-skill/source
 采集源页面证据：
 
 ```bash
-node "$FORK_SKILL/scripts/capture-evidence.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/capture-evidence.mjs" \
   --source http://127.0.0.1:4173/example.com/index.html \
   --out .fork-skill/evidence/source-pass \
   --viewports desktop=1440x900,mobile=390x844
@@ -180,7 +193,7 @@ node "$FORK_SKILL/scripts/capture-evidence.mjs" \
 实现复刻页面后，采集 source/target 双端证据：
 
 ```bash
-node "$FORK_SKILL/scripts/capture-evidence.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/capture-evidence.mjs" \
   --source http://127.0.0.1:4173/example.com/index.html \
   --target http://127.0.0.1:5173/ \
   --out .fork-skill/evidence/latest \
@@ -191,7 +204,7 @@ node "$FORK_SKILL/scripts/capture-evidence.mjs" \
 验证结果：
 
 ```bash
-node "$FORK_SKILL/scripts/validate-evidence.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/validate-evidence.mjs" \
   --evidence .fork-skill/evidence/latest \
   --out .fork-skill/reports/latest \
   --threshold 0.02

@@ -1,6 +1,6 @@
 ---
 name: fork-skill
-description: Use when a user gives a webpage URL and wants the current project to reproduce the frontend with one command-level request: mirror the source with wget, inspect it with MCP Chrome DevTools, collect Playwright evidence, rebuild the UI, validate screenshots, animations, and interactions, then iterate toward one-to-one visual and behavioral fidelity. Focus on frontend UI and browser-visible behavior; use static fixtures for data.
+description: Use when a user gives a webpage URL with any clone-like intent, especially short natural requests such as "复刻 https://example.com", "我想复刻 https://example.com", "复刻这个网站 https://example.com", "仿站 https://example.com", "还原 https://example.com", "照着 https://example.com 做一个", "clone https://example.com", "copy https://example.com", "rebuild https://example.com", or "recreate https://example.com". Trigger on Chinese and English wording for 复刻, 仿站, 还原, 照着做, clone, reproduce, copy, rebuild, fork, recreate, or one-to-one webpage implementation. Mirror the source with wget, inspect it with MCP Chrome DevTools, collect Playwright evidence, rebuild the UI, validate screenshots, animations, and interactions, then iterate toward one-to-one visual and behavioral fidelity. Focus on frontend UI and browser-visible behavior; use static fixtures for data.
 metadata:
   short-description: One-link webpage cloning
 ---
@@ -11,15 +11,24 @@ Goal: a user gives one URL, and the agent drives the full clone pipeline end to 
 
 Default outcome: the current project contains a working frontend reproduction of the source page with matching layout, assets, typography, responsive behavior, animation timing, and visible interactions.
 
-Primary command pattern:
+Natural command examples:
 
 ```text
-Use $fork-skill to clone https://example.com into this project one-to-one.
+复刻 https://example.com
+我想复刻 https://example.com
+复刻这个网站 https://example.com
+仿站 https://example.com
+还原 https://example.com
+照着 https://example.com 做一个
+clone https://example.com into this project
+copy https://example.com
+rebuild https://example.com
+recreate https://example.com one-to-one
 ```
 
 ## Zero-Input Defaults
 
-When the user gives only a URL, proceed with these defaults:
+When the user gives a clone/reproduction intent plus a URL, proceed with these defaults:
 
 - Source: the provided URL.
 - Target route: the current app's primary route, usually `/`.
@@ -72,7 +81,7 @@ Out of scope:
    - Prefer one-link initialization:
 
 ```bash
-node "$FORK_SKILL/scripts/one-link-init.mjs" --url https://example.com/
+node "$HOME/.codex/skills/fork-skill/scripts/one-link-init.mjs" --url https://example.com/
 ```
 
    - Read `.fork-skill/runbook.json` for generated local source URL, commands, paths, and viewports.
@@ -82,7 +91,7 @@ node "$FORK_SKILL/scripts/one-link-init.mjs" --url https://example.com/
    - Prefer the bundled mirror script:
 
 ```bash
-node "$FORK_SKILL/scripts/mirror-source.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/mirror-source.mjs" \
   --url https://example.com/ \
   --out .fork-skill/source
 ```
@@ -91,7 +100,7 @@ node "$FORK_SKILL/scripts/mirror-source.mjs" \
    - Add required CDN domains when assets are missing:
 
 ```bash
-node "$FORK_SKILL/scripts/mirror-source.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/mirror-source.mjs" \
   --url https://example.com/ \
   --out .fork-skill/source \
   --domains example.com,cdn.example.com,images.example.com
@@ -108,7 +117,7 @@ python3 -m http.server 4173 --directory .fork-skill/source
    - Use the Playwright evidence script for repeatable artifacts:
 
 ```bash
-node "$FORK_SKILL/scripts/capture-evidence.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/capture-evidence.mjs" \
   --source http://127.0.0.1:4173/example.com/index.html \
   --out .fork-skill/evidence/source-pass \
   --viewports desktop=1440x900,mobile=390x844
@@ -139,7 +148,7 @@ node "$FORK_SKILL/scripts/capture-evidence.mjs" \
 8. Run target app and capture paired evidence.
 
 ```bash
-node "$FORK_SKILL/scripts/capture-evidence.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/capture-evidence.mjs" \
   --source http://127.0.0.1:4173/example.com/index.html \
   --target http://127.0.0.1:5173/ \
   --out .fork-skill/evidence/latest \
@@ -150,7 +159,7 @@ node "$FORK_SKILL/scripts/capture-evidence.mjs" \
 9. Validate, fix, and repeat.
 
 ```bash
-node "$FORK_SKILL/scripts/validate-evidence.mjs" \
+node "$HOME/.codex/skills/fork-skill/scripts/validate-evidence.mjs" \
   --evidence .fork-skill/evidence/latest \
   --out .fork-skill/reports/latest \
   --threshold 0.02
