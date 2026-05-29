@@ -1,0 +1,13 @@
+interface:
+  display_name: "Fork Skill"
+  short_description: "One-link frontend cloning"
+  default_prompt: "Use $fork-skill to clone this URL's frontend one-to-one into the current project."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chrome_devtools"
+      description: "Chrome DevTools MCP server for frontend inspection, screenshots, resource requests, and visual verification"
+
+policy:
+  allow_implicit_invocation: true
