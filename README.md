@@ -9,10 +9,19 @@
 ## Install
 
 ```bash
+git clone https://github.com/LeoninCS/fork-skill.git
+cd fork-skill
 node scripts/install.mjs
 ```
 
-This installs the skill at `~/.codex/skills/fork-skill`.
+This configures the skill on your machine at `~/.codex/skills/fork-skill`.
+
+Verify the local skill link:
+
+```bash
+ls -l ~/.codex/skills/fork-skill
+ls ~/.codex/skills/fork-skill/SKILL.md
+```
 
 Install runtime tools in the target project:
 
@@ -127,10 +136,19 @@ The clone is ready when desktop and mobile screenshots pass the threshold, key i
 ## 安装
 
 ```bash
+git clone https://github.com/LeoninCS/fork-skill.git
+cd fork-skill
 node scripts/install.mjs
 ```
 
-脚本会把 skill 安装到 `~/.codex/skills/fork-skill`。
+这会把 skill 配置到本机的 `~/.codex/skills/fork-skill`。
+
+验证本机 skill 链接：
+
+```bash
+ls -l ~/.codex/skills/fork-skill
+ls ~/.codex/skills/fork-skill/SKILL.md
+```
 
 在目标项目里安装运行依赖：
 
